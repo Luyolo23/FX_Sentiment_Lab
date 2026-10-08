@@ -14,7 +14,101 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      headlines: {
+        Row: {
+          description: string | null
+          fetched_at: string
+          id: string
+          pair: string
+          published_at: string
+          source: string | null
+          title: string
+          url: string
+        }
+        Insert: {
+          description?: string | null
+          fetched_at?: string
+          id?: string
+          pair: string
+          published_at: string
+          source?: string | null
+          title: string
+          url: string
+        }
+        Update: {
+          description?: string | null
+          fetched_at?: string
+          id?: string
+          pair?: string
+          published_at?: string
+          source?: string | null
+          title?: string
+          url?: string
+        }
+        Relationships: []
+      }
+      prices: {
+        Row: {
+          close: number
+          date: string
+          pair: string
+        }
+        Insert: {
+          close: number
+          date: string
+          pair: string
+        }
+        Update: {
+          close?: number
+          date?: string
+          pair?: string
+        }
+        Relationships: []
+      }
+      sentiments: {
+        Row: {
+          confidence: number
+          created_at: string
+          headline_id: string
+          label: string
+          model: string
+          pair: string
+          reasoning: string | null
+          relevance: number
+          score: number
+        }
+        Insert: {
+          confidence: number
+          created_at?: string
+          headline_id: string
+          label: string
+          model: string
+          pair: string
+          reasoning?: string | null
+          relevance: number
+          score: number
+        }
+        Update: {
+          confidence?: number
+          created_at?: string
+          headline_id?: string
+          label?: string
+          model?: string
+          pair?: string
+          reasoning?: string | null
+          relevance?: number
+          score?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sentiments_headline_id_fkey"
+            columns: ["headline_id"]
+            isOneToOne: true
+            referencedRelation: "headlines"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
