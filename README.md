@@ -1,4 +1,4 @@
-# Pixel Perfect (19)
+# FX Sentiment Lab
 
 Implement exactly the screenshot and nothing else
 
