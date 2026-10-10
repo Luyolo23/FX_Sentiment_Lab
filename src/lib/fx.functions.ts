@@ -161,7 +161,7 @@ export const fetchPrices = createServerFn({ method: "POST" })
       const j = (await res.json()) as { rates?: Record<string, Record<string, number>> };
       const rows = Object.entries(j.rates ?? {})
         .map(([date, r]) => ({ pair: pair.id, date, close: r[pair.quote] }))
-        .filter((r) => Number.isFinite(r.close));
+        .filter((r): r is { pair: string; date: string; close: number } => Number.isFinite(r.close));
       if (rows.length) {
         const db = await admin();
         const { error } = await db.from("prices").upsert(rows, { onConflict: "pair,date" });
